@@ -39,6 +39,11 @@
   background-position: right bottom;
 }
 
+.h95 {
+  height: 95svh;
+  margin-top: 24px;
+}
+
 
 
 body {
