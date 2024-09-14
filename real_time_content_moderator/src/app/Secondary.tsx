@@ -1,5 +1,5 @@
 "use client"
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import Webcam from 'react-webcam';
 
 const Secondary: React.FC = () => {
