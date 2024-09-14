@@ -52,9 +52,9 @@
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/bkctrl"><img src="https://avatars.githubusercontent.com/u/112859636?v=4?s=100" width="100px;" alt="BK Kang"/><br /><sub><b>BK Kang</b></sub></a><br /></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashsic"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Devin Li"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/hmolavi"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Devin Li"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JackFrostDJ"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Devin Li"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashsic"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Name"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/hmolavi"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Name"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JackFrostDJ"><img src="https://avatars.githubusercontent.com/u/108850012?v=4" width="100px;" alt="Name"/><br /><sub><b>Devin Li</b></sub></a><br /></td>
     </tr>
   </tbody>
 </table>
