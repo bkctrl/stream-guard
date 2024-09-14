@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -13,6 +13,16 @@
     --foreground: #ededed;
   }
 }
+*/
+
+/* styles/globals.css */
+.diagonal-split {
+  background: linear-gradient(155deg, #f3f4f6 30%, #5c36e48b 70%);
+  /* background-size: 200% 200%; */
+  background-position: right bottom;
+
+}
+
 
 body {
   color: var(--foreground);
