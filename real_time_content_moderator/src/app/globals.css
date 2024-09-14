@@ -23,6 +23,23 @@
 
 }
 
+.footer-bg {
+  background: linear-gradient(170deg, var(--background) 40%, #75afd1 40%);
+  background-position: right bottom;
+  border-top: dotted 1px #6377a6;
+}
+
+.gbg1 {
+  background: linear-gradient(245deg, var(--background) 20%, #8e5ccf 90%);
+  background-position: right bottom;
+}
+
+.gbg2 {
+  background: linear-gradient(245deg, var(--background) 20%, #fff597 90%);
+  background-position: right bottom;
+}
+
+
 
 body {
   color: var(--foreground);
