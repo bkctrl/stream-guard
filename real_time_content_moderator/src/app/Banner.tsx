@@ -2,9 +2,14 @@ export default function Banner() {
 
 
   return (
-    <div className="diagonal-split flex w-full h-96 border-purple-600">
+    <div className="relative w-full h-svh diagonal-split">
+      <div className="absolute z-10"></div>
+
+      <div className="flex w-full h-96">
+      
+
       <div className="h-full flex justify-center items-center w-2/3">
-        <span className="mx-10 font-medium text-7xl">
+        <span className="z-20 mx-10 font-medium text-7xl max-w-xl">
           Remove explicit content from your audio <br /> <strong>in real time.</strong>
         </span>
       </div>
@@ -12,5 +17,8 @@ export default function Banner() {
 
       </div>
     </div>
+    
+    </div>
+
   );
 }
