@@ -5,16 +5,26 @@ import speech_recognition as sr
 import whisper
 import torch
 import re
-
 from datetime import datetime, timedelta
 from queue import Queue
 from time import sleep
 from sys import platform
-
 import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 import warnings
+from flask import Flask, jsonify
+import threading
+import time
+from flask_cors import CORS
+
+ssl._create_default_https_context = ssl._create_unverified_context
 warnings.filterwarnings("ignore", category=FutureWarning)
+app = Flask(__name__)
+CORS(app)
+transcription = []
+
+@app.route('/transcription', methods=['GET'])
+def get_transcription():
+    return jsonify({'transcription': transcription})
 
 def replaceWord(line):
   if re.compile(r'\b({0})\b'.format(line), flags=re.IGNORECASE).search:
@@ -22,6 +32,7 @@ def replaceWord(line):
   return rep_line
     
 def main():
+    global transcription    
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="base", help="Model to use",
                         choices=["tiny", "base", "small", "medium", "large"])
@@ -132,10 +143,13 @@ def main():
 
                 # Clear the console to reprint the updated transcription.
                 os.system('cls' if os.name=='nt' else 'clear')
-                for line in transcription:
-                  line = replaceWord(line)
-                  print(line)
-                    
+                # for line in transcription:
+                #   line = replaceWord(line)
+                #   transcription.append(line)
+                #   print(line)
+                for i in range(len(transcription)):
+                    transcription[i] = replaceWord(transcription[i])
+                    print(transcription[i])
                  
                 # Flush stdout.
                 print('', end='', flush=True)
@@ -158,4 +172,7 @@ def main():
     #   print(line)
 
 if __name__ == "__main__":
+    flask_thread = threading.Thread(target=lambda: app.run(port=5001, use_reloader=False))
+    flask_thread.daemon = True
+    flask_thread.start()
     main()
