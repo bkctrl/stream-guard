@@ -1,7 +1,9 @@
-import Webcam from "react-webcam";
+"use client"
+import { useRef } from 'react';
+import Webcam from 'react-webcam';
 
 const Secondary: React.FC = () => {
-
+  const webcamRef = useRef(null);
   return (
     <div 
       className="w-full h-svh bg-slate-100 flex justify-center"
@@ -25,8 +27,9 @@ const Secondary: React.FC = () => {
           <div className="w-2/3 h-full">
             <div className="mt-4 ml-4 pt-0.5 h-full w-full gbg1">
               <div className="mt-4 ml-4 h-full w-full">
-                <div className="h-3/4 border border-slate-400 bg-cyan-50">
-                  {/* <Webcam /> */}
+                <div className="h-3/4 border border-slate-400 bg-cyan-50" 
+                  style={{width: "35.5rem", height: "20rem"}}>
+                  <Webcam />
                 </div>
                 <div className="flex flex-col h-1/4 border border-slate-400 bg-white">
                   <div 
