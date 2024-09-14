@@ -1,14 +1,15 @@
 "use client"
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Webcam from 'react-webcam';
 
 const Secondary: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const webcamRef = useRef(null);
+  const webcamRef = useRef(null);  
   return (
     <div 
       className="w-full h-svh bg-slate-100 flex justify-center"
     >
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
       <div
         className="w-3/4 shadow-2xl h95 bg-slate-300 flex flex-col pb-12 rounded-xl"
       >
