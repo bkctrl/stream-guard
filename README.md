@@ -1,10 +1,87 @@
-# Real Time Whisper Transcription
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/bkctrl/biquadris">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-![Demo gif](demo.gif)
+<h3 align="center">Project Name</h3>
 
-This is a demo of real time speech to text with OpenAI's Whisper model. It works by constantly recording audio in a thread and concatenating the raw bytes over multiple recordings.
+  <p align="center">
+  Project Description    <br/><br/>
+    <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
 
-To install dependencies simply run
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+## Contributors
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/bkctrl"><img src="https://avatars.githubusercontent.com/u/112859636?v=4?s=100" width="100px;" alt="BK Kang"/><br /><sub><b>BK Kang</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ashsic"><img src="https://avatars.githubusercontent.com/u/99445200?v=4" width="100px;" alt="Name"/><br /><sub><b>Ashton Sicard</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/hmolavi"><img src="https://avatars.githubusercontent.com/u/75816912?v=4" width="100px;" alt="Name"/><br /><sub><b>
+Hossein Molavi
+</b></sub></a><br /></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JackFrostDJ"><img src="https://avatars.githubusercontent.com/u/48857558?v=4" width="100px;" alt="Name"/><br /><sub><b>Joel Jishu
+</b></sub></a><br /></td>
+    </tr>
+  </tbody>
+</table>
+
+### Built With
+<a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
+<a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"></a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+
+### Prerequisites
+
+
+### Installation
+To install the dependencies, simply run the below command.
 ```
 pip install -r requirements.txt
 ```
@@ -32,3 +109,26 @@ scoop install ffmpeg
 For more information on Whisper please see https://github.com/openai/whisper
 
 The code in this repository is public domain.
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+[EXAMPLE OF RUNNING THE PROJECT]
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
