@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import Webcam from 'react-webcam';
 
 const Secondary: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const webcamRef = useRef(null);
   return (
     <div 
