@@ -1,5 +1,4 @@
 
-
 const Secondary: React.FC = () => {
 
   return (
@@ -7,7 +6,7 @@ const Secondary: React.FC = () => {
       className="w-full h-svh bg-slate-100 flex justify-center"
     >
       <div
-        className="w-3/4 h-full bg-slate-300 flex flex-col"
+        className="w-3/4 h-full bg-slate-300 flex flex-col pb-12"
       >
         <div 
           className="w-full h-24 bg-slate-500"
@@ -22,16 +21,34 @@ const Secondary: React.FC = () => {
             <div className="mt-3.5 ml-4 pt-0.5 h-full w-full gbg1">
               <div className="mt-4 ml-4 h-full w-full bg-cyan-50">
                 <div className="h-3/4 border border-slate-400">
-                  <p>CAMERA</p>
+                  <input type="file" accept="image/*" capture="camera" />
                 </div>
                 <div className="flex h-1/4 border border-slate-400">
-                  div.
+                  <div 
+                    className="w-full h-1/4 border-b-2 flex"
+                  >
+                    <div className="w-1/3 h-full">
+                    
+                    </div>
+                    <div className="w-1/3 h-full flex justify-center items-center">
+                      <button
+                        className="size-12 rounded-3xl bg-slate-200 "
+                      >
+                        mic
+                      </button>
+                    </div>
+                    <div className="w-1/3 h-full">
+                    
+                    </div>
+
+                    
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="w-1/3 h-full m-4">
+          <div className="w-1/3 h-full m-4 ml-12 bg-black">
             <p>transcript</p>
           </div>
 
