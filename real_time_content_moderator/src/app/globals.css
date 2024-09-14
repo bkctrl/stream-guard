@@ -2,22 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --background: #ffffff;
+:root {
+  --background: #f3f4f6;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #191b24;
     --foreground: #ededed;
   }
 }
-*/
+
 
 /* styles/globals.css */
 .diagonal-split {
-  background: linear-gradient(155deg, #f3f4f6 30%, #5c36e48b 70%);
+  background: linear-gradient(155deg, var(--background) 30%, #5c36e48b 70%);
   /* background-size: 200% 200%; */
   background-position: right bottom;
 
