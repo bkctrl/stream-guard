@@ -28,7 +28,7 @@ const Secondary: React.FC = () => {
                 <div className="h-3/4 border border-slate-400 bg-cyan-50">
                   {/* <Webcam /> */}
                 </div>
-                <div className="flex h-1/4 border border-slate-400 bg-white">
+                <div className="flex flex-col h-1/4 border border-slate-400 bg-white">
                   <div 
                     className="w-full h-1/3 border-b-2 flex"
                   >
@@ -46,8 +46,35 @@ const Secondary: React.FC = () => {
                     
                     </div>
 
-                    
+        
                   </div>
+
+                  <div className="flex w-full h-full">
+                    <div className="flex flex-col w-2/3 border justify-center items-center">
+                      <span 
+                          id="time"
+                          className="text-6xl h-1/2" 
+                        >
+                          0:00:00
+                        </span>
+                        <span className="text-sm w-fit">
+                          <em>Duration</em>
+                        </span>
+                    </div>
+                    <div className="flex w-1/3 flex-col justify-center items-center">
+                      <span 
+                        id="count"
+                        className="text-6xl h-1/2" 
+                      >
+                        0
+                      </span>
+                      <span className="text-sm w-fit">
+                        <em>Profanities filtered</em>
+                      </span>
+                    </div>
+
+                  </div>
+
                 </div>
               </div>
             </div>
