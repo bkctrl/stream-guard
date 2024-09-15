@@ -2,11 +2,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/bkctrl/biquadris">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/user-attachments/assets/fb30e9e2-190f-4956-b198-ff73249fe4ad" alt="Logo" height="80">
   </a>
 
 <h3 align="center">StreamGuard</h3>
-
   <p align="center">Because Every Word Counts<br/><br/>
     <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a>
     <br />
@@ -42,6 +41,17 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+Have you struggled with tounge slips?  
+Done either by your favourite streamer or perhaps even yourself?  
+Happens occasionally but when it does, it calls for disaster. One wrong word could mean losing a long developed career for the creator.  
+This is where StreamGuard come to save the day...  
+
+StreamGuard is an innovative content moderation tool designed to enhance the live streaming experience by filtering out unwanted language in **real-time**. Whether you’re a Twitch streamer aiming to maintain a family-friendly channel or a broadcaster ensuring professional standards during live interviews, StreamGuard has you covered.
+
+### Why StreamGuard?
+In the fast-paced world of live streaming, maintaining a clean and professional broadcast can be challenging. StreamGuard provides a reliable solution to prevent unintended slip-ups from reaching your audience, protecting your brand and ensuring a positive viewing experience for all.
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
