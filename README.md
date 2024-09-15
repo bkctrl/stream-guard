@@ -5,10 +5,9 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Project Name</h3>
+<h3 align="center">StreamGuard</h3>
 
-  <p align="center">
-  Project Description    <br/><br/>
+  <p align="center">Because Every Word Counts<br/><br/>
     <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a>
     <br />
     <br />
@@ -93,13 +92,21 @@ Hossein Molavi
 [EXAMPLE OF RUNNING THE PROJECT]
 
 
-
 <!-- ROADMAP -->
 ## Roadmap
+- [ ] Real-Time Audio Transcriping
+  - [X] Real time processing
+  - [X] Balance the model, adjusting speed to performance ratio
+  - [ ] Compile all of the chunk scriptures back to one destination, makes it user friendly
+- [X] Detection of blacklisted words
+  - [X] Detection of a single blacklisted word in live feed
+  - [X] Integerating a quick algorithm to check for words in a list. (Hashmap!)
+- [ ] Customizable Alerts (beep, mute, etc.)
+- [ ] Live Translation / Expand the blacklisted words feature to multiple languages
+  - [ ] Ability to translate on the fly -> Need full sentences not small chunks
+  - [ ] Bleep out words from the translated speech
+- [ ] Dashboard: A web-based dashboard for configuration and monitoring
+- [ ] Integration with Major Streaming Platforms (Twitch, YouTube, etc.)
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
