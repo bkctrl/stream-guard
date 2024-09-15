@@ -40,18 +40,35 @@ export default function Banner() {
 
 
   return (
-    <div className="relative w-full h-svh diagonal-split">
-      <div className="absolute z-10"></div>
+    <div className="relative w-full h-svh diagonal-split flex flex-col">
       <div className="flex w-full h-96">
-      <div className="h-full flex justify-center items-center w-2/3">
-        <span className="z-20 mx-10 mt-24 font-medium text-7xl max-w-xl" data-aos="fade-right" data-aos-duration="1500" data-aos-mirror="true">
-          Remove explicit content from your audio <br /> <strong>in real time.</strong>
-          <br /><br />{transcription.join(' ')} 
-        </span>
+        <div className="h-full flex items-center w-2/3">
+          <span className="z-20 mx-24 mt-32 font-medium text-7xl max-w-4xl" data-aos="fade-right" data-aos-duration="1500" data-aos-mirror="true">
+            Remove unwanted content from your audio <br /> <strong>in real time.</strong>
+            {/* <br /><br />{transcription.join(' ')}  */}
+          </span>
+
+        </div>
+
+        <div className="h-full flex justify-center w-1/3">
+        </div>
       </div>
-      <div className="h-full flex justify-center w-1/3">
+      <div
+        className='flex items-center h-96'
+      >
+        <div
+          className=''
+        >
+
+        </div>
+        <span 
+          data-aos="fade-right" data-aos-duration="1500" data-aos-delay="750" data-aos-mirror="true"
+            className="mt-8 ml-40 w-1/3 text-xl"
+          >
+            <strong>Streamers</strong> - We protect your income stream by staying up to date on TOS violations, so you don't have to. <br /> <br />
+            <strong>Everyone else</strong> - Enjoy your favourite streaming content without worrying about unwanted content. 
+          </span>
       </div>
     </div>
-  </div>
   );
 }
