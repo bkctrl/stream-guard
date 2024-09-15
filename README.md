@@ -7,7 +7,7 @@
 
 <h3 align="center">StreamGuard</h3>
   <p align="center">Because Every Word Counts<br/><br/>
-    <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a><br />
+    <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a><br /><br />
     <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><img src="https://img.shields.io/badge/Devpost-003E54?style=for-the-badge&logo=Devpost&logoColor=white"></a>
     <br />
     <br />
