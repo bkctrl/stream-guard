@@ -8,14 +8,14 @@ import torch
 import argparse
 import socket
 import threading
+import speech_recognition as sr
 
 from pydub import AudioSegment
 from io import BytesIO
 from queue import Queue
-import speech_recognition as sr
 from datetime import datetime, timedelta
-from time import sleep
 from sys import platform
+from time import sleep
 
 ### Variables ###
 buffer = BytesIO(b"")
@@ -24,6 +24,7 @@ rep_word = "wolf"
 data_queue = Queue()
 transcription = ['']
 CHUNK_SIZE = 1024
+POLL_INTERVAL = 1
 phrase_timeout = 3
 record_timeout = 2
 
@@ -98,51 +99,49 @@ def server_thread():
 def handle_client(conn, audio_dir="audio"):
     """Handle client connection in a separate thread."""
 
-    # sent_files = set()  # Keep track of files that have been sent
-    
-    # # Get all the files in the directory and sort them
-    # files = sorted(os.listdir(audio_dir))
-    
-    # # Iterate over the files and send the ones that haven't been sent yet
-    # for filename in files:
-    #     # conn.sendall("Here 1")
-    #     if filename.endswith(".wav") and filename not in sent_files:
-    #         try:
-    #             # conn.sendall("Here 2")
-    #             # Mark the file as sent before actually sending it to avoid duplication
-    #             sent_files.add(filename)
-                
-    #             # Send the new file
-    #             print(f"Buffering: {filename}")
-    #             file_path = os.path.join(audio_dir, filename)
-    #             with wave.open(file_path, 'rb') as wf:
-    #                     data = wf.readframes(wf.getnframes())
-    #                     if len(data) > 0:
-    #                         buffer.write(data)
-    #                         if len(buffer.getvalue()) >= CHUNK_SIZE:
-    #                             conn.sendall(buffer.getvalue())
-    #                             buffer.truncate(0)
-    #                             buffer.seek(0)
-    #             print(f"Sent: {filename}")
-    #         except wave.Error as e:
-    #             print(f"Error reading file {filename}: {e}")
-    #         except Exception as e:
-    #             print(f"Unexpected error: {e}")
-    # print("Client connected.")
-    # conn.close()
-    # print("Client disconnected.")
-
     print("Starting audio stream...")
     
-    source = sr.Microphone(sample_rate=16000)  # Initialize microphone source (or replace with actual source)
-    for data in continuous_record_transcribe(source, record_timeout=2):
+    sent_files = set()  # Keep track of files that have been sent
+    
+    while True:
         try:
-            conn.sendall(data)
-        except BrokenPipeError:
-            print("Client disconnected.")
-            break
+            # Get all the files in the directory and sort them
+            files = sorted(os.listdir(audio_dir))
+            new_files = [f for f in files if f.endswith(".wav") and f not in sent_files]
 
+            if not new_files:
+                print("No new files. Waiting for new files...")
+                sleep(POLL_INTERVAL)
+                continue
+            
+            # Iterate over the files and send the ones that haven't been sent yet
+            for filename in new_files:
+                # Mark the file as sent before actually sending it to avoid duplication
+                sent_files.add(filename)
+                    
+                # Send the new file
+                print(f"Buffering: {filename}")
+                file_path = os.path.join(audio_dir, filename)
+                with wave.open(file_path, 'rb') as wf:
+                    data = wf.readframes(wf.getnframes())
+                    if len(data) > 0:
+                        buffer.write(data)
+                        if len(buffer.getvalue()) >= CHUNK_SIZE:
+                            conn.sendall(buffer.read(CHUNK_SIZE))
+                            buffer.truncate(0)
+                            buffer.seek(0)
+                # Send any remaining data in the buffer
+                if buffer.tell() > 0:
+                    conn.sendall(buffer.read())
+                print(f"Sent: {filename}")
+        except wave.Error as e:
+            print(f"Error reading file: {e}")
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+
+    print("Client connected.")
     conn.close()
+    print("Client disconnected.")
 
 def record_audio(source, record_timeout):
     """Record audio from the microphone and push it to the queue."""

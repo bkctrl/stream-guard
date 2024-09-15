@@ -20,24 +20,24 @@ def play_audio_stream():
                     rate=RATE,
                     output=True)
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((HOST, PORT))
+    
+    # Continuously receive data from the server and play it
+    try:
         print("Connected to server, receiving audio...")
-        
-        # Continuously receive data from the server and play it
         while True:
-            try:
-                data = s.recv(CHUNK_SIZE)
-                # if not data:
-                #     print("Nothing here")
-                #     break
+            data = s.recv(CHUNK_SIZE)
+            if not data:
+                print("Nothing here")
+                continue
+            if (len(data) > 0):
                 print(f"Received chunk of size: {len(data)} bytes")
                 stream.write(data)  # Play audio as it arrives
-            except Exception as e:
-                print(f"An error occurred: {e}")
-                break
-        s.close()
+    except Exception as e:
+        print(f"An error occurred: {e}")
     # Cleanup
+    s.close()
     stream.stop_stream()
     stream.close()
     p.terminate()
