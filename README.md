@@ -44,7 +44,7 @@
 ## About The Project
 Have you struggled with tounge slips?  
 Done either by your favourite streamer or perhaps even yourself?  
-Happens occasionally but when it does, it calls for disaster. One wrong word could mean losing a long developed career for the creator.  
+Happens occasionally but when it does, it calls for disaster for the creator. One wrong word could mean losing portions of your audience, or worse, a long developed career.  
 This is where StreamGuard come to save the day...  
 
 StreamGuard is an innovative content moderation tool designed to enhance the live streaming experience by filtering out unwanted language in **real-time**. Whether you’re a Twitch streamer aiming to maintain a family-friendly channel or a broadcaster ensuring professional standards during live interviews, StreamGuard has you covered.
