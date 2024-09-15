@@ -87,7 +87,8 @@ const Secondary: React.FC = () => {
               <div className="mt-4 ml-4 h-full w-full">
                 <div className="h-3/4 border border-slate-400 bg-cyan-50" 
                   >
-                  <Webcam audio={true} ref={webcamRef} />
+                  <Webcam className='w-full h-fit' 
+                  audio={true} ref={webcamRef} />
                 </div>
                 <div className="flex flex-col h-1/4 border  bg-white">
                   <div 

@@ -4,8 +4,13 @@ export default function HeaderBar() {
   return (
     <header className=" h-16 w-full flex justify-between px-8 border-2 border-slate-800">
       <div className="flex justify-center items-center">
-        <h2>
-          Real Time Content Moderator
+        <img src={"./streamguard_logo_png1.png"} alt="test" 
+          className='w-40'
+        />
+        <h2
+          className='ml-8 text-sm'
+        >
+          Because Every Word Counts 
         </h2>
 
       </div>
