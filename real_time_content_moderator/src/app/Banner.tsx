@@ -43,7 +43,7 @@ export default function Banner() {
       <div className="flex w-full h-96">
       <div className="h-full flex justify-center items-center w-2/3">
         <span className="z-20 mx-10 mt-24 font-medium text-7xl max-w-xl">
-          Remove explicit content from your audio <br /> <strong>in real time.</strong>
+          Remove unwanted content from your audio <br /> <strong>in real time.</strong>
           <br /><br />{transcription.join(' ')} 
         </span>
       </div>
