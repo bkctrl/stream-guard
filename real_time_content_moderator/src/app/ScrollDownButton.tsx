@@ -1,7 +1,7 @@
 import React from "react";
 import { JSX, SVGProps } from "react"
 
-export default function ScrollDownButton(props: any) {
+export default function ScrollDownButton() {
   return (
     <div className="relative">
       <button className="bottom-4 left-1/2 z-10 -translate-x-1/2 animate-bounce">
