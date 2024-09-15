@@ -32,8 +32,9 @@ def play_audio_stream():
                 # if not data:
                 #     print("Nothing here")
                 #     break
-                print("Data found")
-                stream.write(data)  # Play audio as it arrives
+                if data:
+                    print("Data found")
+                    stream.write(data)  # Play audio as it arrives
             except KeyboardInterrupt:
                 break
 
