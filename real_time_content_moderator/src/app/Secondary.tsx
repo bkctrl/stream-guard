@@ -91,26 +91,10 @@ const Secondary: React.FC = () => {
                   audio={true} ref={webcamRef} />
                 </div>
                 <div className="flex flex-col h-1/4 border  bg-white">
-                  <div 
-                    className="w-full h-1/3 border-b-2 flex"
-                  >
-                    <div className="w-1/3 h-full">
-                    
-                    </div>
-                    <div className="w-1/3 h-full flex justify-center items-center">
-                      <button
-                        className="size-12 rounded-3xl bg-white border border-black"
-                        id="start"
-                      >
-                        mic
-                      </button>
-                    </div>
-                    <div className="w-1/3 h-full">
-                    </div>
-                  </div>
 
-                  <div className="flex flex-col h-1/4 border border-slate-400 bg-white">
-                  <div className="w-full h-1/3 border-b-2 flex justify-center items-center">
+
+                  <div className="flex flex-col h-1/4 bg-white items-center justify-center py-4">
+                  <div className="w-full h-1/3 flex justify-center items-center">
                     {!recording ? (
                       <button className="rounded-3xl bg-green-500 text-white p-2 z-50 cursor-pointer" onClick={startRecording}>
                         Start Record
@@ -136,7 +120,7 @@ const Secondary: React.FC = () => {
                           <em>Duration</em>
                         </span>
                     </div>
-                    <div className="flex w-1/3 flex-col justify-center items-center">
+                    <div className="flex border-t w-1/3 flex-col justify-center items-center">
                       <span 
                         id="count"
                         className="text-6xl h-1/2" 
