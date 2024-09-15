@@ -1,14 +1,47 @@
 "use client"
+import axios from 'axios';
 import { useRef, useState, useEffect } from 'react';
+import { Button } from '@mui/material';
 import Webcam from 'react-webcam';
+import AOS from 'aos';
 
 const Secondary: React.FC = () => {
+  const [transcription, setTranscription] = useState<string[]>([]);
+  const transcriptionRef = useRef(transcription);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const webcamRef = useRef<Webcam>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [recording, setRecording] = useState(false);
-  const [timer, setTimer] = useState(0); // Timer in seconds
+  const [timer, setTimer] = useState(0);
+  const [censored, setcensored] = useState(0);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  const speakText = (text: string | undefined) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1; 
+      utterance.pitch = 1; 
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const fetchTranscription = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:5001/transcription');
+      const num_censored: number = await axios.get('http://127.0.0.1:5001/num-censored');
+      const receivedNumCensored = (num_censored as any).data.num_censored;
+      const receivedTranscription: string[] = response.data.transcription;
+      if (receivedTranscription.length > transcriptionRef.current.length) {
+        const newTranscription = receivedTranscription.slice(transcriptionRef.current.length);
+        setTranscription(receivedTranscription); 
+        setcensored(receivedNumCensored);
+        transcriptionRef.current.length = receivedTranscription.length;
+        speakText(newTranscription.join(' '));
+      }
+    } catch (error) {
+      console.error('Error fetching transcription:', error);
+    }
+  };
 
   const formatTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
@@ -17,8 +50,9 @@ const Secondary: React.FC = () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-
   const startRecording = () => {
+    const interval = setInterval(fetchTranscription, 1000); 
+    
     setRecording(true);
     const stream = webcamRef.current?.video?.srcObject as MediaStream;
     mediaRecorderRef.current = new MediaRecorder(stream, {
@@ -55,6 +89,7 @@ const Secondary: React.FC = () => {
       setTimer((prevTimer) => prevTimer + 1);
     }, 1000);
     setIntervalId(id);
+    return () => clearInterval(interval); 
   };
 
   const stopRecording = () => {
@@ -67,90 +102,83 @@ const Secondary: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    AOS.init();
+    // const interval = setInterval(fetchTranscription, 1000); 
+    // return () => clearInterval(interval); 
+  }, []);  
+
+
   return (
-    <div 
-      className="w-full h-svh bg-slate-100 flex justify-center"
+    <section 
+      id="demo-webcam"
+      className="h-svh bg-slate-100 justify-center" style={{maxHeight: "91vh", width:"100%"}}
     >
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
-      <div className="w-3/4 shadow-2xl h95 bg-slate-300 flex flex-col pb-12 rounded-xl">
-        <div className="w-full h-24 bg-slate-300 rounded-xl">
-          <div>
-            <h2 className="text-6xl mt-6 ml-12" >
-              Try the demo!
-            </h2>
-          </div>
-        </div>
-
-        <div className="w-full h-full flex">
-          <div className="w-2/3 h-full">
-            <div className="mt-4 ml-4 pt-0.5 h-full w-full gbg1">
-              <div className="mt-4 ml-4 h-full w-full">
-                <div className="h-3/4 border border-slate-400 bg-cyan-50" 
-                  >
-                  <Webcam className='w-full h-fit' 
-                  audio={true} ref={webcamRef} />
+      <div>
+        <h2 className="text-5xl mt-6 ml-12 font-semibold" style={{paddingTop: "3vh", textAlign: "center"}}>
+          See It in Action
+        </h2>
+        <div data-aos="zoom-in" aos-duration="1500" style={{maxHeight: "93vh",
+          paddingTop: "5vh", alignItems: "center", justifyContent: "center", display: "flex"}}>
+          <div className="rounded-lg border bg-card p-4 shadow-sm transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-lg hover:shadow-[#8e5ccf]/50" style={{backgroundColor: "white", width: "80vw", height:"70vh"}}>
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+              <Webcam audio={true} ref={webcamRef} className='rounded-md object-cover' style={{width: "40vw"}}/>
+              <div className="w-1/3 p-4 h-auto m-4 ml-12 rounded-lg bg-white border-2 border-slate-500" style={{width: "35vw", height:"48vh"}}>
+                <p>{transcription.join(' ')} </p>
+              </div>
+            </div>
+            <div className="mt-4">
+              <h3 className="text-lg font-semibold">Real-Time Video</h3>
+              <p className="mt-2 text-muted-foreground">
+              </p>
+              <div className="mt-4 flex" style={{gap: "1rem"}}>
+              <div className="flex flex-row border justify-center items-center rounded-lg"
+                style={{alignItems: "center", justifyContent: "center", display: "flex", gap: "10rem",
+                  height: "7rem", width: "90%"
+                  }}>
+                <div className="flex flex-col items-center">
+                  <div id="time" className="text-6xl h-1/2">
+                    {formatTime(timer)}
+                  </div>
+                  <p className="text-sm w-fit" style={{alignItems: "center"}}>
+                    <em>Duration</em>
+                  </p>
                 </div>
-                <div className="flex flex-col h-1/4 border  bg-white">
-
-
-                  <div className="flex flex-col h-1/4 bg-white items-center justify-center py-4">
-                  <div className="w-full h-1/3 flex justify-center items-center">
-                    {!recording ? (
-                      <button className="rounded-3xl bg-green-500 text-white p-2 z-50 cursor-pointer" onClick={startRecording}>
-                        Start Record
-                      </button>
-                    ) : (
-                      <button className="rounded-3xl bg-red-500 text-white p-2 z-50 cursor-pointer" onClick={stopRecording}>
-                        Stop Record
-                      </button>
-                    )}
+                <div className="flex flex-col items-center">
+                  <div id="count" className="text-6xl h-1/2">
+                    {censored}
                   </div>
+                  <div className="text-sm w-fit">
+                    <em>Profanities filtered</em>
                   </div>
-                    
-                  <div className="flex w-full h-full">
-                    <div className="flex flex-col w-2/3 border justify-center items-center">
-                      <span 
-                          id="time"
-                          className="text-6xl h-1/2" 
-                          // ref={timerRef}
-                        >
-                          {formatTime(timer)}
-                        </span>
-                        <span className="text-sm w-fit">
-                          <em>Duration</em>
-                        </span>
-                    </div>
-                    <div className="flex border-t w-1/3 flex-col justify-center items-center">
-                      <span 
-                        id="count"
-                        className="text-6xl h-1/2" 
-                      >
-                        0
-                      </span>
-                      <span className="text-sm w-fit">
-                        <em>Profanities filtered</em>
-                      </span>
-                    </div>
-
-                  </div>
-
                 </div>
+              </div>
+              {!recording ? (
+                <Button className="rounded-2xl bg-green-500 text-white p-2 z-50 cursor-pointer" onClick={startRecording}  style={{display: "flex",
+                  flexDirection: "column", alignItems: "center"}}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 12 12">
+                    <path fill="currentColor" d="M4.496 1.994A1 1 0 0 0 3 2.862v6.277a1 1 0 0 0 1.496.868l5.492-3.139a1 1 0 0 0 0-1.736z" />
+                  </svg>
+                  <p style={{fontSize: "0.8rem", paddingTop: "0.2rem"}}>Start Record</p>
+                </Button>
+              ) : (
+                <Button className="rounded-2xl bg-red-500 text-white p-2 z-50 cursor-pointer" onClick={stopRecording}  style={{display: "flex",
+                  flexDirection: "column", alignItems: "center"}}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 12 12">
+                    <path fill="currentColor" d="M3 2a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm5 0a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z" />
+                  </svg>
+                  <p style={{fontSize: "0.8rem", paddingTop: "0.2rem"}}>Stop Record</p>
+                </Button>
+              )}
+
               </div>
             </div>
           </div>
-
-          <div className="w-1/3 p-4 h-auto m-4 ml-12 rounded-lg bg-white border-2 border-slate-500">
-            <p>transcript goes here</p>
           </div>
-
-
-
         </div>
-
-
-      </div>
-    </div>
-  );
+    </section>
+  )
 }
 
 export default Secondary;
