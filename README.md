@@ -2,11 +2,10 @@
 <br />
 <div align="center">
   <a href="https://github.com/bkctrl/biquadris">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/user-attachments/assets/fb30e9e2-190f-4956-b198-ff73249fe4ad" alt="Logo" height="80">
   </a>
 
 <h3 align="center">StreamGuard</h3>
-
   <p align="center">Because Every Word Counts<br/><br/>
     <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a>
     <br />
@@ -42,9 +41,26 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+Have you struggled with tounge slips?  
+Done either by your favourite streamer or perhaps even yourself?  
+Happens occasionally but when it does, it calls for disaster. One wrong word could mean losing a long developed career for the creator.  
+This is where StreamGuard come to save the day...  
+
+StreamGuard is an innovative content moderation tool designed to enhance the live streaming experience by filtering out unwanted language in **real-time**. Whether you’re a Twitch streamer aiming to maintain a family-friendly channel or a broadcaster ensuring professional standards during live interviews, StreamGuard has you covered.
+
+### Why StreamGuard?
+In the fast-paced world of live streaming, maintaining a clean and professional broadcast can be challenging. StreamGuard provides a reliable solution to prevent unintended slip-ups from reaching your audience, protecting your brand and ensuring a positive viewing experience for all.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## How we built it
+We built StreamGuard's frontend using Next.js and Tailwind CSS for smooth transitions, creating a visually appealing user interface, all deployed on Vercel for easy updates. The backend, powered by Flask, handles HTTP requests, while PyDub and PyAudio manage audio processing. We leveraged PyTorch for machine learning alongside with OpenAI’s Whisper providing real-time speech recognition for accurate transcription and filtering. Real-time communication is facilitated by Socket, ensuring minimal latency. Finally, StreamGuard is deployed on Google Cloud Platform, where it can thrive in larger clusters, taking advantage of the larger AI models and robust infrastructure. 
 
+### Built With
+<a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
+<a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"></a>
 
 ## Contributors
 <table>
@@ -60,12 +76,6 @@ Hossein Molavi
     </tr>
   </tbody>
 </table>
-
-### Built With
-<a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
-<a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
-<a href=""><img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"></a>
-<a href=""><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"></a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
