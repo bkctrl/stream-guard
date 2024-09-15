@@ -95,14 +95,6 @@ Hossein Molavi
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-[EXAMPLE OF RUNNING THE PROJECT]
-
-
 <!-- ROADMAP -->
 ## Roadmap
 - [ ] Real-Time Audio Transcribing
