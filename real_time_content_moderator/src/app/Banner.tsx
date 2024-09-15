@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import {useState, useEffect, useRef} from 'react';
+import AOS from 'aos';
 
 export default function Banner() {
   const [transcription, setTranscription] = useState<string[]>([]);
@@ -32,6 +33,7 @@ export default function Banner() {
   };
 
   useEffect(() => {
+    AOS.init();
     const interval = setInterval(fetchTranscription, 1000); 
     return () => clearInterval(interval); 
   }, []);  
@@ -42,8 +44,8 @@ export default function Banner() {
       <div className="absolute z-10"></div>
       <div className="flex w-full h-96">
       <div className="h-full flex justify-center items-center w-2/3">
-        <span className="z-20 mx-10 mt-24 font-medium text-7xl max-w-xl">
-          Remove unwanted content from your audio <br /> <strong>in real time.</strong>
+        <span className="z-20 mx-10 mt-24 font-medium text-7xl max-w-xl" data-aos="fade-right" data-aos-duration="1500" data-aos-mirror="true">
+          Remove explicit content from your audio <br /> <strong>in real time.</strong>
           <br /><br />{transcription.join(' ')} 
         </span>
       </div>

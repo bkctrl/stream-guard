@@ -3,9 +3,7 @@ import { useRef, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 
 const Secondary: React.FC = () => {
-  const webcamRef = useRef(null);
   const timerRef: any = useRef(null);
-  const startRef = useRef(null);
 
   const [seconds, setSeconds] = useState(0);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -63,6 +61,7 @@ useEffect(() => {
     <div 
       className="w-full h-svh bg-slate-100 flex justify-center"
     >
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
       <div
         className="w-3/4 shadow-2xl h95 bg-slate-300 flex flex-col pb-12 rounded-xl"
       >
