@@ -52,43 +52,7 @@ def save_audio_wf(audio_data, filename=None):
         wf.setnchannels(1)  # mono
         wf.setsampwidth(2)  # 2 bytes per sample
         wf.setframerate(16000)  # 16kHz sample rate
-        wf.writeframes(audio_data)
-
-def buffer_audio(conn, audio_dir="audio"):
-    sent_files = set()  # Keep track of files that have been sent
-    
-    # Get all the files in the directory and sort them
-    files = sorted(os.listdir(audio_dir))
-    
-    # Iterate over the files and send the ones that haven't been sent yet
-    for filename in files:
-        if filename.endswith(".wav") and filename not in sent_files:
-            try:
-                # Mark the file as sent before actually sending it to avoid duplication
-                sent_files.add(filename)
-                
-                # Send the new file
-                print(f"Buffering: {filename}")
-                file_path = os.path.join(audio_dir, filename)
-                with wave.open(file_path, 'rb') as wf:
-                        data = wf.readframes(wf.getnframes())
-                        if len(data) > 0:
-                            buffer.write(data)
-                            if len(buffer.getvalue()) >= CHUNK_SIZE:
-                                conn.sendall(buffer.getvalue())
-                                print(f"Sent: {filename}")
-                                buffer.truncate(0)
-                                buffer.seek(0)
-            except wave.Error as e:
-                print(f"Error reading file {filename}: {e}")
-            except Exception as e:
-                print(f"Unexpected error: {e}")
-
-    # Send any remaining data in the buffer
-    if len(buffer.getvalue()) > 0:
-        conn.sendall(buffer.getvalue())
-        buffer.truncate(0)
-        buffer.seek(0)        
+        wf.writeframes(audio_data)    
 
 def continuous_record_transcribe(source, record_timeout):
     """Continuously records and transcribes audio in the background."""
@@ -102,14 +66,14 @@ def continuous_record_transcribe(source, record_timeout):
             # If enough time has passed between recordings, consider the phrase complete.
             # Clear the current working audio buffer to start over with the new data.
             if phrase_time and now - phrase_time > timedelta(seconds=phrase_timeout):
-                print("Data entry")
                 phrase_complete = True
             # This is the last time we received new audio data from the queue.
             phrase_time = now
-            audio_data = data_queue.get()
-            print("Processing audio data.")
+            audio_data = b''.join(data_queue.queue)
+            save_audio_wf(audio_data)
             process_audio_data(audio_data, phrase_complete)
             data_queue.queue.clear()
+            # yield processed_audio
         else:
             # Infinite loops are bad for processors, must sleep.
             sleep(0.25)
@@ -134,38 +98,51 @@ def server_thread():
 def handle_client(conn, audio_dir="audio"):
     """Handle client connection in a separate thread."""
 
-    sent_files = set()  # Keep track of files that have been sent
+    # sent_files = set()  # Keep track of files that have been sent
     
-    # Get all the files in the directory and sort them
-    files = sorted(os.listdir(audio_dir))
+    # # Get all the files in the directory and sort them
+    # files = sorted(os.listdir(audio_dir))
     
-    # Iterate over the files and send the ones that haven't been sent yet
-    for filename in files:
-        if filename.endswith(".wav") and filename not in sent_files:
-            try:
-                # Mark the file as sent before actually sending it to avoid duplication
-                sent_files.add(filename)
+    # # Iterate over the files and send the ones that haven't been sent yet
+    # for filename in files:
+    #     # conn.sendall("Here 1")
+    #     if filename.endswith(".wav") and filename not in sent_files:
+    #         try:
+    #             # conn.sendall("Here 2")
+    #             # Mark the file as sent before actually sending it to avoid duplication
+    #             sent_files.add(filename)
                 
-                # Send the new file
-                print(f"Buffering: {filename}")
-                file_path = os.path.join(audio_dir, filename)
-                with wave.open(file_path, 'rb') as wf:
-                        data = wf.readframes(wf.getnframes())
-                        if len(data) > 0:
-                            buffer.write(data)
-                            if len(buffer.getvalue()) >= CHUNK_SIZE:
-                                conn.sendall(buffer.getvalue())
-                                print(f"Sent: {filename}")
-                                buffer.truncate(0)
-                                buffer.seek(0)
-                print(f"Sent: {filename}")
-            except wave.Error as e:
-                print(f"Error reading file {filename}: {e}")
-            except Exception as e:
-                print(f"Unexpected error: {e}")
-    print("Client connected.")
+    #             # Send the new file
+    #             print(f"Buffering: {filename}")
+    #             file_path = os.path.join(audio_dir, filename)
+    #             with wave.open(file_path, 'rb') as wf:
+    #                     data = wf.readframes(wf.getnframes())
+    #                     if len(data) > 0:
+    #                         buffer.write(data)
+    #                         if len(buffer.getvalue()) >= CHUNK_SIZE:
+    #                             conn.sendall(buffer.getvalue())
+    #                             buffer.truncate(0)
+    #                             buffer.seek(0)
+    #             print(f"Sent: {filename}")
+    #         except wave.Error as e:
+    #             print(f"Error reading file {filename}: {e}")
+    #         except Exception as e:
+    #             print(f"Unexpected error: {e}")
+    # print("Client connected.")
+    # conn.close()
+    # print("Client disconnected.")
+
+    print("Starting audio stream...")
+    
+    source = sr.Microphone(sample_rate=16000)  # Initialize microphone source (or replace with actual source)
+    for data in continuous_record_transcribe(source, record_timeout=2):
+        try:
+            conn.sendall(data)
+        except BrokenPipeError:
+            print("Client disconnected.")
+            break
+
     conn.close()
-    print("Client disconnected.")
 
 def record_audio(source, record_timeout):
     """Record audio from the microphone and push it to the queue."""
@@ -177,7 +154,6 @@ def record_audio(source, record_timeout):
         """Callback function to handle recorded audio."""
         data = audio.get_raw_data()
         data_queue.put(data)
-        print("Audio data added to queue.")
 
     with source:
         recorder.adjust_for_ambient_noise(source)
@@ -185,8 +161,6 @@ def record_audio(source, record_timeout):
 
 def process_audio_data(audio_data, phrase_complete=False):
     """Process audio data and perform transcription using Whisper."""
-    
-    save_audio_wf(audio_data)
     audio_np = np.frombuffer(audio_data, dtype=np.int16).astype(np.float32) / 32768.0
     
     # Load model and transcribe audio
@@ -195,7 +169,7 @@ def process_audio_data(audio_data, phrase_complete=False):
      # Cue the user that we're ready to go.
     print("Model loaded.\n")
     text = result['text'].strip()
-
+    processed_audio = None
     # Look for the banned word and handle replacements
     for segment in result['segments']:
         for i, word in enumerate(segment['words']):
@@ -214,7 +188,7 @@ def process_audio_data(audio_data, phrase_complete=False):
                 files = os.scandir("audio")
                 latest_audio = max(files, key=os.path.getctime)
                 replace_audio(latest_audio, start_time, end_time)
-                with open("stamps.txt", "a") as f:
+                with open("stamps.txt", "a", encoding='utf-8') as f:
                     f.write(f"Found at {start_time:.2f}s to {end_time:.2f}s in {latest_audio}\n")
                     f.close()
     # If we detected a pause between recordings, add a new item to our transcription.
@@ -230,11 +204,12 @@ def process_audio_data(audio_data, phrase_complete=False):
         new_line = replace_word(line)
         transcription[transcription.index(line)] = new_line
         print(new_line)
-        with open("transcript.txt", "a") as f:
+        with open("transcript.txt", "a", encoding='utf-8') as f:
             f.write(f"{new_line}\n")
             f.close()
     # Flush stdout.
     print('', end='', flush=True)
+    # return processed_audio
 
 def replace_word(line):
     """Replace a word in the transcription with a replacement word."""
@@ -264,6 +239,10 @@ def replace_audio(og_file, start_time, end_time, rep_file="rep/bleep.wav"):
     # Export the modified audio to a new file
     new_audio.export(og_file, format="wav")
 
+    # # Read the modified audio file and return its data
+    # with open(og_file, 'rb') as f:
+    #     return f.read()
+
 def cleanup(directory_path):
    try:
      with os.scandir(directory_path) as entries:
@@ -273,6 +252,9 @@ def cleanup(directory_path):
      stamps_file = os.path.join(os.path.dirname(directory_path), "stamps.txt")
      if os.path.exists(stamps_file):
          os.unlink(stamps_file)
+     transcript_file = os.path.join(os.path.dirname(directory_path), "transcript.txt")
+     if os.path.exists(transcript_file):
+         os.unlink(transcript_file)
     #  print("All files deleted successfully.")
    except OSError:
      print("Error occurred while deleting files.")

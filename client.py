@@ -22,7 +22,6 @@ def play_audio_stream():
 
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
-        # s.settimeout(60)  # Client waits for up to 30 seconds for data
         print("Connected to server, receiving audio...")
         
         # Continuously receive data from the server and play it
@@ -32,12 +31,12 @@ def play_audio_stream():
                 # if not data:
                 #     print("Nothing here")
                 #     break
-                if data:
-                    print("Data found")
-                    stream.write(data)  # Play audio as it arrives
-            except KeyboardInterrupt:
+                print(f"Received chunk of size: {len(data)} bytes")
+                stream.write(data)  # Play audio as it arrives
+            except Exception as e:
+                print(f"An error occurred: {e}")
                 break
-
+        s.close()
     # Cleanup
     stream.stop_stream()
     stream.close()
