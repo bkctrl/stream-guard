@@ -104,13 +104,13 @@ Hossein Molavi
 
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] Real-Time Audio Transcriping
+- [ ] Real-Time Audio Transcribing
   - [X] Real time processing
   - [X] Balance the model, adjusting speed to performance ratio
-  - [ ] Compile all of the chunk scriptures back to one destination, makes it user friendly
+  - [ ] Compile all of the audio chunks back to singular output, making it user friendly
 - [X] Detection of blacklisted words
   - [X] Detection of a single blacklisted word in live feed
-  - [X] Integerating a quick algorithm to check for words in a list. (Hashmap!)
+  - [ ] Integerating a quick algorithm to check for words in a list. (Hashmap!)
 - [ ] Customizable Alerts (beep, mute, etc.)
 - [ ] Live Translation / Expand the blacklisted words feature to multiple languages
   - [ ] Ability to translate on the fly -> Need full sentences not small chunks
