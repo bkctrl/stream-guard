@@ -42,7 +42,7 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-Have you struggled with tounge slips?  
+Have you struggled with tongue slips?  
 Done either by your favourite streamer or perhaps even yourself?  
 Happens occasionally but when it does, it calls for disaster for the creator. One wrong word could mean losing portions of your audience, or worse, a long developed career.  
 This is where StreamGuard come to save the day...  
