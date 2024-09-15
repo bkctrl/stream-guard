@@ -8,7 +8,7 @@ export default function Footer() {
     style={{minHeight: "7vh", backgroundColor: "#bda4e3"}}>
         <div className="text-xs w-full ml-auto flex items-center" style={{fontSize: "0.9rem", marginLeft : "43vw"}}>
           <span>🦆 Made @Hack the North 2024</span>
-          <Link href="https://github.com/bkctrl/hack-the-north" target="_blank" className="group ml-2" prefetch={false}>
+          <Link href="https://github.com/bkctrl/stream-guard" target="_blank" className="group ml-2" prefetch={false}>
             <GithubIcon className="h-6 w-6 fill-none transition-colors group-hover:fill-[#2b3137]" /> 
           </Link>
         </div>
