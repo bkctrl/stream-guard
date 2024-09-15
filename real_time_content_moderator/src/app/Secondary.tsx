@@ -28,8 +28,8 @@ const Secondary: React.FC = () => {
   const fetchTranscription = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:5001/transcription');
-      const num_censored: number = await axios.get('http://127.0.0.1:5001/num-censored');
-      const receivedNumCensored = (num_censored as any).data.num_censored;
+      const numCensoredResponse = await axios.get('http://127.0.0.1:5001/num-censored');
+      const receivedNumCensored = numCensoredResponse.data.num_censored;
       const receivedTranscription: string[] = response.data.transcription;
       if (receivedTranscription.length > transcriptionRef.current.length) {
         const newTranscription = receivedTranscription.slice(transcriptionRef.current.length);
