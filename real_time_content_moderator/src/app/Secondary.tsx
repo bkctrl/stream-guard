@@ -86,7 +86,7 @@ const Secondary: React.FC = () => {
             <div className="mt-4 ml-4 pt-0.5 h-full w-full gbg1">
               <div className="mt-4 ml-4 h-full w-full">
                 <div className="h-3/4 border border-slate-400 bg-cyan-50" 
-                  style={{width: "35.5rem", height: "20rem"}}>
+                  >
                   <Webcam audio={true} ref={webcamRef} />
                 </div>
                 <div className="flex flex-col h-1/4 border  bg-white">
@@ -100,7 +100,6 @@ const Secondary: React.FC = () => {
                       <button
                         className="size-12 rounded-3xl bg-white border border-black"
                         id="start"
-                        onClick={toggleTimer}
                       >
                         mic
                       </button>
@@ -128,7 +127,7 @@ const Secondary: React.FC = () => {
                       <span 
                           id="time"
                           className="text-6xl h-1/2" 
-                          ref={timerRef}
+                          // ref={timerRef}
                         >
                           {formatTime(timer)}
                         </span>
