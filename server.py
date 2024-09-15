@@ -24,6 +24,7 @@ PORT = 9090        # Port to listen on
 CHUNK_SIZE = 1024
 
 ban_word = "chocolate"
+rep_word = "wolf"
 buffer = BytesIO(b"")
 
 def handle_client(conn):
@@ -34,7 +35,7 @@ def handle_client(conn):
 def replaceWord(line):
     rep_line = line
     if re.compile(r'\b({0})\b'.format(line), flags=re.IGNORECASE).search:
-        rep_line = re.sub(ban_word, 'wolf', line)
+        rep_line = re.sub(ban_word, rep_word, line)
     return rep_line
 
 def replace_audio(og_file, start_time, end_time, rep_file="rep/bleep.wav"):
@@ -279,6 +280,9 @@ def main():
                         new_line = replaceWord(line)
                         transcription[transcription.index(line)] = new_line
                         print(new_line)
+                        with open("transcript.txt", "a") as f:
+                            f.write(f"{new_line}\n")
+                            f.close()
                     # Flush stdout.
                     print('', end='', flush=True)
                 else:
