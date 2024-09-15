@@ -5,11 +5,17 @@ import re
 import numpy as np
 import whisper
 import torch
+import argparse
+import socket
+import threading
 
 from pydub import AudioSegment
 from io import BytesIO
 from queue import Queue
 import speech_recognition as sr
+from datetime import datetime, timedelta
+from time import sleep
+from sys import platform
 
 ### Variables ###
 buffer = BytesIO(b"")
@@ -18,6 +24,12 @@ rep_word = "wolf"
 data_queue = Queue()
 transcription = ['']
 CHUNK_SIZE = 1024
+phrase_timeout = 3
+record_timeout = 2
+
+# Server configuration
+HOST = 'localhost'  # Server's IP address
+PORT = 8080        # Port to listen on
 
 ### Functions ###
 def get_latest_name(filepath = "audio/output-wf-"):
@@ -78,6 +90,47 @@ def buffer_audio(conn, audio_dir="audio"):
         buffer.truncate(0)
         buffer.seek(0)        
 
+def continuous_record_transcribe(source, record_timeout):
+    """Continuously records and transcribes audio in the background."""
+    record_audio(source, record_timeout)
+    now = datetime.utcnow()
+    # The last time a recording was retrieved from the queue.
+    phrase_time = now
+    while True:
+        if not data_queue.empty():
+            phrase_complete = False
+            # If enough time has passed between recordings, consider the phrase complete.
+            # Clear the current working audio buffer to start over with the new data.
+            if phrase_time and now - phrase_time > timedelta(seconds=phrase_timeout):
+                print("Data entry")
+                phrase_complete = True
+            # This is the last time we received new audio data from the queue.
+            phrase_time = now
+            audio_data = data_queue.get()
+            print("Processing audio data.")
+            process_audio_data(audio_data, phrase_complete)
+            data_queue.queue.clear()
+        else:
+            # Infinite loops are bad for processors, must sleep.
+            sleep(0.25)
+
+def server_thread():
+    """Run the server to handle client connections."""
+    # Start the server
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind((HOST, PORT))
+        s.listen()
+
+        print(f"Server listening on {HOST}:{PORT}")
+
+        while True:
+            conn, addr = s.accept()  # Accept client connection
+            print(f"Connected by {addr}")
+            
+            # Handle the client connection in a separate thread
+            client_thread = threading.Thread(target=handle_client, args=(conn,))
+            client_thread.start()
+
 def handle_client(conn, audio_dir="audio"):
     """Handle client connection in a separate thread."""
 
@@ -105,6 +158,7 @@ def handle_client(conn, audio_dir="audio"):
                                 print(f"Sent: {filename}")
                                 buffer.truncate(0)
                                 buffer.seek(0)
+                print(f"Sent: {filename}")
             except wave.Error as e:
                 print(f"Error reading file {filename}: {e}")
             except Exception as e:
@@ -123,6 +177,7 @@ def record_audio(source, record_timeout):
         """Callback function to handle recorded audio."""
         data = audio.get_raw_data()
         data_queue.put(data)
+        print("Audio data added to queue.")
 
     with source:
         recorder.adjust_for_ambient_noise(source)

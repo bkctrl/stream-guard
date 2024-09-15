@@ -3,7 +3,7 @@ import pyaudio
 
 # Client configuration
 HOST = 'localhost'  # Server's IP address
-PORT = 9090        # Port to connect to
+PORT = 8080        # Port to connect to
 
 # Audio configuration
 CHUNK_SIZE = 1024  # How much data to read at once (in bytes)
