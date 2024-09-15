@@ -7,6 +7,16 @@ const Secondary: React.FC = () => {
   const webcamRef = useRef<Webcam>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [recording, setRecording] = useState(false);
+  const [timer, setTimer] = useState(0); // Timer in seconds
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+
+  const formatTime = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
 
   const startRecording = () => {
     setRecording(true);
@@ -31,14 +41,30 @@ const Secondary: React.FC = () => {
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(videoURL);
+
+      setTimer(0);
+      if (intervalId) {
+        clearInterval(intervalId);
+        setIntervalId(null);
+      }
     };
 
     mediaRecorderRef.current.start();
+
+    const id = setInterval(() => {
+      setTimer((prevTimer) => prevTimer + 1);
+    }, 1000);
+    setIntervalId(id);
   };
 
   const stopRecording = () => {
     mediaRecorderRef.current?.stop();
     setRecording(false);
+    setTimer(0);
+    if (intervalId) {
+      clearInterval(intervalId);
+      setIntervalId(null);
+    }
   };
 
   return (
@@ -94,14 +120,14 @@ const Secondary: React.FC = () => {
                     )}
                   </div>
                   </div>
-
+                    
                   <div className="flex w-full h-full">
                     <div className="flex flex-col w-2/3 border justify-center items-center">
                       <span 
                           id="time"
                           className="text-6xl h-1/2" 
                         >
-                          0:00:00
+                          {formatTime(timer)}
                         </span>
                         <span className="text-sm w-fit">
                           <em>Duration</em>
