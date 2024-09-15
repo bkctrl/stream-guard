@@ -2,13 +2,11 @@
 <br />
 <div align="center">
   <a href="https://github.com/bkctrl/biquadris">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://github.com/user-attachments/assets/fb30e9e2-190f-4956-b198-ff73249fe4ad" alt="Logo" height="80">
   </a>
 
-<h3 align="center">Project Name</h3>
-
-  <p align="center">
-  Project Description    <br/><br/>
+<h3 align="center">StreamGuard</h3>
+  <p align="center">Because Every Word Counts<br/><br/>
     <a href="DEMO LINK, TO BE UPDATED AFTER WE'RE DONE"><strong>View Demo »</strong></a>
     <br />
     <br />
@@ -43,9 +41,26 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+Have you struggled with tounge slips?  
+Done either by your favourite streamer or perhaps even yourself?  
+Happens occasionally but when it does, it calls for disaster. One wrong word could mean losing a long developed career for the creator.  
+This is where StreamGuard come to save the day...  
+
+StreamGuard is an innovative content moderation tool designed to enhance the live streaming experience by filtering out unwanted language in **real-time**. Whether you’re a Twitch streamer aiming to maintain a family-friendly channel or a broadcaster ensuring professional standards during live interviews, StreamGuard has you covered.
+
+### Why StreamGuard?
+In the fast-paced world of live streaming, maintaining a clean and professional broadcast can be challenging. StreamGuard provides a reliable solution to prevent unintended slip-ups from reaching your audience, protecting your brand and ensuring a positive viewing experience for all.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## How we built it
+We built StreamGuard's frontend using Next.js and Tailwind CSS for smooth transitions, creating a visually appealing user interface, all deployed on Vercel for easy updates. The backend, powered by Flask, handles HTTP requests, while PyDub and PyAudio manage audio processing. We leveraged PyTorch for machine learning alongside with OpenAI’s Whisper providing real-time speech recognition for accurate transcription and filtering. Real-time communication is facilitated by Socket, ensuring minimal latency. Finally, StreamGuard is deployed on Google Cloud Platform, where it can thrive in larger clusters, taking advantage of the larger AI models and robust infrastructure. 
 
+### Built With
+<a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
+<a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"></a>
+<a href=""><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"></a>
 
 ## Contributors
 <table>
@@ -62,12 +77,6 @@ Hossein Molavi
   </tbody>
 </table>
 
-### Built With
-<a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
-<a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
-<a href=""><img src="https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white"></a>
-<a href=""><img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"></a>
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -81,35 +90,6 @@ Hossein Molavi
 
 
 ### Installation
-To install the dependencies, simply run the below command.
-```
-pip install -r requirements.txt
-```
-in an environment of your choosing.
-
-Whisper also requires the command-line tool [`ffmpeg`](https://ffmpeg.org/) to be installed on your system, which is available from most package managers:
-
-```
-# on Ubuntu or Debian
-sudo apt update && sudo apt install ffmpeg
-
-# on Arch Linux
-sudo pacman -S ffmpeg
-
-# on MacOS using Homebrew (https://brew.sh/)
-brew install ffmpeg
-
-# on Windows using Chocolatey (https://chocolatey.org/)
-choco install ffmpeg
-
-# on Windows using Scoop (https://scoop.sh/)
-scoop install ffmpeg
-```
-
-For more information on Whisper please see https://github.com/openai/whisper
-
-The code in this repository is public domain.
-
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -122,13 +102,21 @@ The code in this repository is public domain.
 [EXAMPLE OF RUNNING THE PROJECT]
 
 
-
 <!-- ROADMAP -->
 ## Roadmap
+- [ ] Real-Time Audio Transcribing
+  - [X] Real time processing
+  - [X] Balance the model, adjusting speed to performance ratio
+  - [ ] Compile all of the audio chunks back to singular output, making it user friendly
+- [X] Detection of blacklisted words
+  - [X] Detection of a single blacklisted word in live feed
+  - [ ] Integerating a quick algorithm to check for words in a list. (Hashmap!)
+- [ ] Customizable Alerts (beep, mute, etc.)
+- [ ] Live Translation / Expand the blacklisted words feature to multiple languages
+  - [ ] Ability to translate on the fly -> Need full sentences not small chunks
+  - [ ] Bleep out words from the translated speech
+- [ ] Dashboard: A web-based dashboard for configuration and monitoring
+- [ ] Integration with Major Streaming Platforms (Twitch, YouTube, etc.)
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

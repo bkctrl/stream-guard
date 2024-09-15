@@ -1,0 +1,4 @@
+Found at 2.70s to 3.06s in <DirEntry 'output-wf-00.wav'>
+Found at 1.06s to 1.36s in <DirEntry 'output-wf-01.wav'>
+Found at 3.38s to 4.28s in <DirEntry 'output-wf-01.wav'>
+Found at 1.18s to 1.62s in <DirEntry 'output-wf-02.wav'>
