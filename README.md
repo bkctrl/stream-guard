@@ -57,6 +57,9 @@ In the fast-paced world of live streaming, maintaining a clean and professional 
 ## How we built it
 We built StreamGuard's frontend using Next.js and Tailwind CSS for smooth transitions, creating a visually appealing user interface, all deployed on Vercel for easy updates. The backend, powered by Flask, handles HTTP requests, while PyDub and PyAudio manage audio processing. We leveraged PyTorch for machine learning alongside with OpenAI’s Whisper providing real-time speech recognition for accurate transcription and filtering. Real-time communication is facilitated by Socket, ensuring minimal latency. Finally, our final goal is for StreamGuard to be deployed on Google Cloud Platform, where it can thrive in larger clusters, taking advantage of the larger AI models via more resources. 
 
+### How to Real-Time
+As you might imagine, with one big difficult problem, you must first break it down into many managable chunks. So that is exactly what we did! Our software breaks down the live feed into 1s to sub 1s segments which are processed individiaully for transcripture then put together to create the final transcript you see. The system is intelligent and hence the chunk cuts happen when you finish the word you are speaking, i.e. the instant before you say the next word in your sentence. This opens many gateways and possibilities for us, concurrent-programming/parallel-computing, ability for APIs and faster response times are a few to mention. But for this projet we are using concurrent programming at small scale to get the job done.
+  
 ### Built With
 <a href=""><img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"></a>
 <a href=""><img src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white"></a>
